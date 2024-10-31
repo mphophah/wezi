@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Note</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ffafbd, #ffc3a0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+            animation: backgroundChange 10s infinite;
+        }
+        @keyframes backgroundChange {
+            0% { background: linear-gradient(to right, #ffafbd, #ffc3a0); }
+            25% { background: linear-gradient(to right, #ff9a9e, #fecfef); }
+            50% { background: linear-gradient(to right, #ff758c, #ff7eb3); }
+            75% { background: linear-gradient(to right, #c471ed, #f64f59); }
+            100% { background: linear-gradient(to right, #ffafbd, #ffc3a0); }
+        }
+        .container {
+            text-align: center;
+            color: #fff;
+            z-index: 1;
+        }
+        h1, p {
+            margin: 0;
+        }
+        h1 {
+            font-size: 2em;
+            animation: fadeIn 2s ease-in-out;
+        }
+        p {
+            font-size: 1em;
+            margin-top: 10px;
+            animation: fadeIn 3s ease-in-out;
+            line-height: 1.5;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .hearts div {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            animation: move 5s linear infinite;
+        }
+        .hearts div::before,
+        .hearts div::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%;
+        }
+        .hearts div::before {
+            top: -10px;
+            left: 0;
+        }
+        .hearts div::after {
+            left: 10px;
+            top: 0;
+        }
+        @keyframes move {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-700px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .big-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: red;
+            transform: translate(-50%, -50%) rotate(45deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: rotate 5s infinite linear;
+        }
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .big-heart::before,
+        .big-heart::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: red;
+            border-radius: 50%;
+        }
+        .big-heart::before {
+            top: -150px;
+            left: 0;
+        }
+        .big-heart::after {
+            left: 150px;
+            top: 0;
+        }
+        .message {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: white;
+            color: red;
+            border-radius: 50%;
+            display: none; /* Start with the message hidden */
+            justify-content: center;
+            align-items: center;
+            transform: rotate(-45deg);
+            text-align: center;
+            z-index: 2;
+            padding: 10px;
+        }
+        .message div {
+            transform: rotate(45deg);
+        }
+        .message h1 {
+            font-size: 1.5em;
+        }
+        .message p {
+            font-size: 1em;
+        }
+        .photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            animation: pulse 1.5s infinite;
+            z-index: 3;
+        }
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .photo:hover img {
+            transform: scale(1.1);
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        .bottom-animation {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            animation: bounce 2s infinite;
+        }
+        .bottom-animation div {
+            width: 20px;
+            height: 20px;
+            background: red;
+            margin: 0 5px;
+            border-radius: 50%;
+            animation: bounceUpDown 2s infinite;
+        }
+        @keyframes bounceUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        .title {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 3em;
+            color: red;
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            0% { color: red; }
+            100% { color: gold; }
+        }
+    </style>
+</head>
+<body>
+    <div class="title">My Heart Beats for You Wezi</div>
+    <div class="hearts" id="hearts"></div>
+    <div class="big-heart">
+        <div class="photo" id="photo">
+            <img src="wezi.jpg" alt="Wezi's Photo">
+        </div>
+        <div class="message" id="message">
+            <div>
+                <h1>My Beloved</h1>
+                <p>You are the light of my life,<br> the beat in my heart,<br> and the smile on my face.<br>With every passing day,<br> my love for you grows<br> stronger and deeper.</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-animation">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.getElementById('hearts').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+
+        // Function to toggle between photo and message
+        function toggleContent() {
+            const photo = document.getElementById('photo');
+            const message = document.getElementById('message');
+
+            // Show photo, hide message initially
+            photo.style.display = 'flex';
+            message.style.display = 'none';
+
+            setTimeout(() => {
+                // After 2 seconds, show message and hide photo
+                photo.style.display = 'none';
+                message.style.display = 'flex';
+            }, 2000);
+
+            setTimeout(() => {
+                // After another 2 seconds, show photo again
+                photo.style.display = 'flex';
+                message.style.display = 'none';
+            }, 4000);
+        }
+
+        // Start the toggle content function
+        toggleContent();
+        // Set the interval to repeat the toggle every 4 seconds
+        setInterval(toggleContent, 4000);
+    </script>
+</body>
+</html>
